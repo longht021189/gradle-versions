@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4.1.0
+
+      - uses: actions/setup-java@v3.13.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1.1.0
+
+      - name: Publish Package
+        uses: gradle/gradle-build-action@v2.9.0
+        with:
+          arguments: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
