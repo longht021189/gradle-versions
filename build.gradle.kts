@@ -13,17 +13,17 @@ publishing {
   repositories {
     maven {
       name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+      url = uri("https://maven.pkg.github.com/longht021189/gradle-versions")
       credentials {
-        username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-        password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        username = System.getenv("GITHUB_USERNAME")
+        password = System.getenv("GITHUB_TOKEN")
       }
     }
   }
   publications {
     create<MavenPublication>("maven") {
-      groupId = "org.gradle.sample"
-      artifactId = "library"
+      groupId = "com.github.longht021189"
+      artifactId = "gradle-versions"
       version = "0.0.1"
 
       from(components["versionCatalog"])
